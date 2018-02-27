@@ -27,6 +27,21 @@ public final class SpreadSheetUtil {
         return null;
     }
 
+    public static Workbook createWorkbook(byte[] data) {
+        InputStream in = null;
+        try {
+            in = new ByteArrayInputStream(data);
+            return createWorkBookWithClose(in);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                }
+            }
+        }
+    }
+
 
     /**
      * ファイルからworkbookを生成

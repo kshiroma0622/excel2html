@@ -1,0 +1,13 @@
+*.class
+*.jar
+*.war
+*.xls
+*.html
+
+/bin/**
+.classpath
+.project
+
+*.iml
+.idea/
+target/**
