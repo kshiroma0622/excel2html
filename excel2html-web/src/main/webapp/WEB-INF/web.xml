@@ -14,7 +14,7 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>excellist.jsp</welcome-file>
+        <welcome-file>excellist.html</welcome-file>
     </welcome-file-list>
 <!-- [END standard_mappings] -->
 

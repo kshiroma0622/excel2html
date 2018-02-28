@@ -10,10 +10,7 @@ import kshiroma0622.excel2html.util.SpreadSheetUtil;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.nio.charset.Charset;
 
 public class Excel2HtmlUtil {
@@ -31,7 +28,12 @@ public class Excel2HtmlUtil {
         ITokenMatrix matrix = tokenizer.tokenize();
         IParser parser = new Parser();
         IUIFragment page = parser.parse(matrix);
-        WriterWrapper w = new WriterWrapper(new OutputStreamWriter(os));
+        WriterWrapper w = null;
+        try {
+            w = new WriterWrapper(new OutputStreamWriter(os, "UTF8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         page.render(w);
         w.flush();
     }

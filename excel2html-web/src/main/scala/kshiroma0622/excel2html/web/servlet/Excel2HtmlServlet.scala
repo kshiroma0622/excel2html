@@ -2,10 +2,9 @@ package kshiroma0622.excel2html.web.servlet
 
 import java.io.{ByteArrayOutputStream, IOException, InputStream}
 import javax.servlet.ServletException
-import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
+import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletRequestWrapper, HttpServletResponse}
 
 import com.google.appengine.repackaged.org.apache.commons.codec.binary.Base64
-import com.google.common.io.Files
 import kshiroma0622.excel2html.Excel2HtmlUtil
 
 
@@ -19,10 +18,13 @@ class Excel2HtmlServlet extends HttpServlet {
 
   protected def post(req: HttpServletRequest, resp: HttpServletResponse): Unit = {
     val m = req.getParameter("file-base64");
-    val data = Base64.decodeBase64(m.toString.split(",",2)(1))
-    resp.setCharacterEncoding("UTF-8")
-    resp.setContentType("text/html")
-    Excel2HtmlUtil.toHtml(data,resp.getOutputStream)
+    val data = Base64.decodeBase64(m.toString.split(",", 2)(1))
+    val header = req.getHeader("Accept-Encoding");
+    var p = header.asInstanceOf[HttpServletRequestWrapper]
+    resp.setCharacterEncoding("UTF8")
+    resp.setContentType("text/html; charset=utf-u")
+    resp.setHeader("Accept-Encoding", null)
+    Excel2HtmlUtil.toHtml(data, resp.getOutputStream)
   }
 
 
